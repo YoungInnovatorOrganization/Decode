@@ -28,8 +28,8 @@ public class fieldCentric extends LinearOpMode {
         IMU imu = hardwareMap.get(IMU.class, "imu");
         // Adjust the orientation parameters to match your robot
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                RevHubOrientationOnRobot.UsbFacingDirection.LEFT));
+                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
+                RevHubOrientationOnRobot.UsbFacingDirection.DOWN));
         // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
         imu.initialize(parameters);
 
@@ -38,15 +38,15 @@ public class fieldCentric extends LinearOpMode {
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
-            double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
+            double y = -gamepad1.left_stick_y;
             double x = gamepad1.left_stick_x;
             double rx = gamepad1.right_stick_x;
-//deadzone below
+            //deadzone below
             y = Math.abs(y) < 0.01 ? 0 : y;
             x = Math.abs(x) < 0.01 ? 0 : x;
             rx = Math.abs(rx) < 0.01 ? 0 : rx;
 
-//cubic scaling (not working atm) (nvmd somehow it is working)
+            //cubic scaling (not working atm) (nvmd somehow it is working)
             y = Math.pow(y, 3);
             x = Math.pow(x, 3);
             rx = Math.pow(rx, 3);
