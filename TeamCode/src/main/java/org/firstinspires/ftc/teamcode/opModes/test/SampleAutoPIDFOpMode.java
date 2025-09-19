@@ -1,17 +1,14 @@
 package org.firstinspires.ftc.teamcode.opModes.test;
 
-import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import hardwareControl.actuators.common.PIDFController;
+import org.firstinspires.ftc.teamcode.hardwareControl.actuators.common.PIDFController;
 
 
-@Config
 @Autonomous(name="Sample Auto PIDF OpMode", group="specimens")
 public class SampleAutoPIDFOpMode extends LinearOpMode
 {
@@ -34,9 +31,6 @@ public class SampleAutoPIDFOpMode extends LinearOpMode
     @Override
     public void runOpMode()
     {
-        FtcDashboard dashboard = FtcDashboard.getInstance();
-        telemetry = dashboard.getTelemetry();
-
 
         telemetry.addData("TestMotorOpMode", "runOpMode started");
         telemetry.update();
