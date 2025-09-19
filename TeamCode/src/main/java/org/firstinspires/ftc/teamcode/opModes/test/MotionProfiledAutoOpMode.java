@@ -1,19 +1,17 @@
 package org.firstinspires.ftc.teamcode.opModes.test;
 
-import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import hardwareControl.actuators.common.MotionProfiler;
-import hardwareControl.actuators.common.PIDFController;
+import org.firstinspires.ftc.teamcode.hardwareControl.actuators.common.MotionProfiler;
+import org.firstinspires.ftc.teamcode.hardwareControl.actuators.common.PIDFController;
 
 
-@Config
+
 @Autonomous(name="Motion Profiled Auto OpMode", group="specimens")
 public class MotionProfiledAutoOpMode extends LinearOpMode
 {
@@ -41,12 +39,10 @@ public class MotionProfiledAutoOpMode extends LinearOpMode
 
     private long count=0;
 
-    private FtcDashboard dashboard = FtcDashboard.getInstance();
+
     @Override
     public void runOpMode()
     {
-
-        telemetry = dashboard.getTelemetry();
 
 
         telemetry.addData("TestMotorOpMode", "runOpMode started");
@@ -114,25 +110,6 @@ public class MotionProfiledAutoOpMode extends LinearOpMode
         }
     }
 
-    private void updateDashboardGraph(){
-        // --- Dashboard packet for plotting ---
-        TelemetryPacket packet = new TelemetryPacket();
-        packet.put("targetPosition", targetPosition);
-        packet.put("currentPosition", currentPosition);
-        packet.put("power", power);
 
-        // You can also draw a scrolling graph:
-        packet.fieldOverlay()
-                .setStroke("blue")
-                .strokeLine(currentPosition, 0, currentPosition, 10); // example marker
-
-        dashboard.sendTelemetryPacket(packet);
-
-        telemetry.addData("Target", targetPosition);
-        telemetry.addData("Current", currentPosition);
-        telemetry.addData("Power", power);
-        telemetry.update();
-
-    }
 
 }

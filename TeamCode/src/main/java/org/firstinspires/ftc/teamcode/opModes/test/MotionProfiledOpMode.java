@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import hardwareControl.actuators.common.MotionProfiler;
-import hardwareControl.actuators.common.PIDFController;
+import org.firstinspires.ftc.teamcode.hardwareControl.actuators.common.MotionProfiler;
+import org.firstinspires.ftc.teamcode.hardwareControl.actuators.common.PIDFController;
 
 @TeleOp(name="Motion Profiled PIDF OpMode")
 public class MotionProfiledOpMode extends LinearOpMode {
