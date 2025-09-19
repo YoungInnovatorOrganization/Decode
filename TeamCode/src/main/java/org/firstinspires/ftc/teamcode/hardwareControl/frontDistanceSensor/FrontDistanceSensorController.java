@@ -1,6 +1,5 @@
-package hardwareControl.frontDistanceSensor;
+package org.firstinspires.ftc.teamcode.hardwareControl.frontDistanceSensor;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -8,11 +7,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-import hardwareConfig.baseConstants.DistanceSensorConstants;
-import hardwareConfig.frontDistanceSensor.FrontDistanceSensorConstants;
+import org.firstinspires.ftc.teamcode.hardwareConfig.baseConstants.DistanceSensorConstants;
+import org.firstinspires.ftc.teamcode.hardwareConfig.frontDistanceSensor.FrontDistanceSensorConstants;
 
 
-@Config
 public class FrontDistanceSensorController {
     private boolean initialized = false;
 
