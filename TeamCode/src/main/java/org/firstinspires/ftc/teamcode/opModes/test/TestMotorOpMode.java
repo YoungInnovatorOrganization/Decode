@@ -1,7 +1,5 @@
-package opModes.test;
+package org.firstinspires.ftc.teamcode.opModes.test;
 
-import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -10,11 +8,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-import hardwareControl.frontDistanceSensor.FrontDistanceSensorController;
-import hardwareControl.actuators.shoulder.ShoulderController;
-import hardwareControl.frontLeftCamera.FrontLeftCameraController;
+import org.firstinspires.ftc.teamcode.hardwareControl.frontDistanceSensor.FrontDistanceSensorController;
+import org.firstinspires.ftc.teamcode.hardwareControl.actuators.shoulder.ShoulderController;
+import org.firstinspires.ftc.teamcode.hardwareControl.frontLeftCamera.FrontLeftCameraController;
 
-@Config
 @Autonomous(name="TestMotor/servo", group="specimens")
 public class TestMotorOpMode extends LinearOpMode
 {
@@ -48,8 +45,6 @@ public class TestMotorOpMode extends LinearOpMode
     @Override
     public void runOpMode()
     {
-        FtcDashboard dashboard = FtcDashboard.getInstance();
-        telemetry = dashboard.getTelemetry();
 
         telemetry.clearAll();
         telemetry.addData("TestMotorOpMode", "runOpMode started");

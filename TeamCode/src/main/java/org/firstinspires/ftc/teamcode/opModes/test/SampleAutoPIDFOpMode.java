@@ -1,4 +1,4 @@
-package opModes.test;
+package org.firstinspires.ftc.teamcode.opModes.test;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;

@@ -1,10 +1,9 @@
-package hardwareConfig.baseConstants;
+package org.firstinspires.ftc.teamcode.hardwareConfig.baseConstants;
 
-import com.acmerobotics.dashboard.config.Config;
 
 
 ////TODO: Set servo constants
-@Config
+
 public class WristConstants {
     public static String name;
     public static double maxDegrees;

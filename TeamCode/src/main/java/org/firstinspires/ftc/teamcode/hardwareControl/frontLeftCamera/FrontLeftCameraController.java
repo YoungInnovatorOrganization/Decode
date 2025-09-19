@@ -1,6 +1,5 @@
-package hardwareControl.frontLeftCamera;
+package org.firstinspires.ftc.teamcode.hardwareControl.frontLeftCamera;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -14,11 +13,10 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
 import java.util.List;
 
-import hardwareConfig.baseConstants.WebCamConstants;
-import hardwareConfig.frontLeftCamera.FrontLeftCameraConstants;
+import org.firstinspires.ftc.teamcode.hardwareConfig.baseConstants.WebCamConstants;
+import org.firstinspires.ftc.teamcode.hardwareConfig.frontLeftCamera.FrontLeftCameraConstants;
 
 
-@Config
 public class FrontLeftCameraController {
     private boolean initialized = false;
 
