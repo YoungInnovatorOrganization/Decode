@@ -3,9 +3,9 @@ package org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTre
 
 public class BehaviorTree {
     private final Node root;
-    private final BlackBoardSingleton blackBoard;
+    private final BlackBoard blackBoard;
 
-    public BehaviorTree(Node root, BlackBoardSingleton blackBoard) {
+    public BehaviorTree(Node root, BlackBoard blackBoard) {
         this.root = root;
         this.blackBoard = blackBoard;
     }

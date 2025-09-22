@@ -11,7 +11,7 @@ class Parallel extends Node {
     }
 
     @Override
-    public Status execute(BlackBoardSingleton globalStore) {
+    public Status execute(BlackBoard globalStore) {
         List<Status> childStatuses = new ArrayList<>();
 
         for (Node child : children) {

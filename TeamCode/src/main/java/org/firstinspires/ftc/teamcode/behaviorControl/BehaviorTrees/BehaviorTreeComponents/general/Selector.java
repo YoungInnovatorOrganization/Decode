@@ -16,7 +16,7 @@ public class Selector extends Node {
     }
 
     @Override
-    public Status execute(BlackBoardSingleton globalStore) {
+    public Status execute(BlackBoard globalStore) {
         for (Node child : children) {
             Status status = child.execute(globalStore);
             telemetry.addData("Selector", "Selector status: %b",status == Status.SUCCESS);

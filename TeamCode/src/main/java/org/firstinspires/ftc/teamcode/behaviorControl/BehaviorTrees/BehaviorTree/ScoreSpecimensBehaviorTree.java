@@ -13,7 +13,7 @@ import java.util.List;
 import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.ActionFunctions.SpecimenSide.MoveArmToScoringSpecimenPosition;
 import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.general.Action;
 import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.general.BehaviorTree;
-import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.general.BlackBoardSingleton;
+import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.general.BlackBoard;
 import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.general.Node;
 import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.general.Sequence;
 import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.general.Status;
@@ -26,7 +26,7 @@ import org.firstinspires.ftc.teamcode.hardwareControl.actuators.shoulder.Shoulde
 public class ScoreSpecimensBehaviorTree {
     private BehaviorTree tree;
     private Node root;
-    private BlackBoardSingleton blackBoard;
+    private BlackBoard blackBoard;
     protected Telemetry telemetry;
     protected HardwareMap hardwareMap;
     protected LinearOpMode opMode;
@@ -59,7 +59,7 @@ public class ScoreSpecimensBehaviorTree {
         Init();
     }
     private void Init() {
-        this.blackBoard = BlackBoardSingleton.getInstance(telemetry);
+        this.blackBoard = BlackBoard.getInstance(telemetry);
         this.blackBoard.reset();
 /*
         /// Drive Train

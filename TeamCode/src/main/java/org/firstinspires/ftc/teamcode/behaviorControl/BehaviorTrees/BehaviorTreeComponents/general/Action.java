@@ -12,7 +12,7 @@ public class Action extends Node {
     }
 
     @Override
-    public Status execute(BlackBoardSingleton blackBoard) {
+    public Status execute(BlackBoard blackBoard) {
         return actionFunction.perform(blackBoard);
     }
 }

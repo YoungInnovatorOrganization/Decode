@@ -8,7 +8,7 @@ public class Conditional extends Node {
     }
 
     @Override
-    public Status execute(BlackBoardSingleton blackBoard) {
+    public Status execute(BlackBoard blackBoard) {
         boolean result = condition.check(blackBoard);
         if (result) {
             return Status.SUCCESS;

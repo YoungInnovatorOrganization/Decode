@@ -14,7 +14,7 @@ public class Sequence extends Node {
     }
 
     @Override
-    public Status execute(BlackBoardSingleton globalStore) {
+    public Status execute(BlackBoard globalStore) {
         for (Node child : children) {
             Status status = child.execute(globalStore);
           //  opMode.telemetry.addData("Sequence", "Sequence execute result: %b num children = %d",status==Status.SUCCESS, children.stream().count());
