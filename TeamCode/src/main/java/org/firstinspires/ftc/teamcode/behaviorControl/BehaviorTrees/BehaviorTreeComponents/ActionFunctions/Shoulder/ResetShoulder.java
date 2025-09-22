@@ -7,20 +7,20 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.general.ActionFunction;
 import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.general.BlackBoard;
 import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.general.Status;
-import org.firstinspires.ftc.teamcode.hardwareControl.actuators.shoulder.ShoulderController;
+import org.firstinspires.ftc.teamcode.hardwareControl.actuators.shooter.ShooterController;
 
 public class ResetShoulder implements ActionFunction
 {
     private final LinearOpMode opMode;
     Telemetry telemetry;
-    ShoulderController shoulderController;
+    ShooterController shooterController;
     protected Status lastStatus = Status.FAILURE;
 
     boolean started = false;
 
-    public ResetShoulder(Telemetry telemetry, ShoulderController shoulderController, LinearOpMode opMode) {
+    public ResetShoulder(Telemetry telemetry, ShooterController shooterController, LinearOpMode opMode) {
         this.telemetry = telemetry;
-        this.shoulderController = shoulderController;
+        this.shooterController = shooterController;
         this.opMode = opMode;
         this.init();
     }
@@ -34,14 +34,14 @@ public class ResetShoulder implements ActionFunction
             return lastStatus;
         }
         if (!started) {
-            shoulderController.reset();
+            shooterController.reset();
             started = true;
             status = Status.RUNNING;
         } else {
-            if (shoulderController.isBusy()) {
+            if (shooterController.isBusy()) {
                 status = Status.RUNNING;
             } else {
-                if (shoulderController.isShoulderStuck()) {
+                if (shooterController.isShoulderStuck()) {
                     status = Status.FAILURE;
                 } else {
                     status = Status.SUCCESS;

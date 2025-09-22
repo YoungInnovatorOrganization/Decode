@@ -8,9 +8,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-import org.firstinspires.ftc.teamcode.hardwareControl.frontDistanceSensor.FrontDistanceSensorController;
-import org.firstinspires.ftc.teamcode.hardwareControl.actuators.shoulder.ShoulderController;
-import org.firstinspires.ftc.teamcode.hardwareControl.frontLeftCamera.FrontLeftCameraController;
+import org.firstinspires.ftc.teamcode.hardwareControl.sensors.intakeDistanceSensor.IntakeDistanceSensorController;
+import org.firstinspires.ftc.teamcode.hardwareControl.actuators.shooter.ShooterController;
+import org.firstinspires.ftc.teamcode.hardwareControl.sensors.frontLeftCamera.FrontLeftCameraController;
 
 @Autonomous(name="TestMotor/servo", group="specimens")
 public class TestMotorOpMode extends LinearOpMode
@@ -23,8 +23,8 @@ public class TestMotorOpMode extends LinearOpMode
     public static double motorTargetPosition =1000;
     public static double motorPower =0.1;
     public static DcMotorEx.Direction motorDirection= DcMotorEx.Direction.FORWARD;
-    ShoulderController shoulderController;
-    FrontDistanceSensorController frontDistanceSensorController;
+    ShooterController shooterController;
+    IntakeDistanceSensorController frontDistanceSensorController;
     FrontLeftCameraController frontLeftCameraController;
 
     double startAngle;
@@ -58,7 +58,7 @@ public class TestMotorOpMode extends LinearOpMode
         /// End Shoulder
 
         /// Front Distance Sensor
-        frontDistanceSensorController = FrontDistanceSensorController.getInstance();
+        frontDistanceSensorController = IntakeDistanceSensorController.getInstance();
         frontDistanceSensorController.initialize(hardwareMap, telemetry, this);
 
         /// End Front Distance Sensor

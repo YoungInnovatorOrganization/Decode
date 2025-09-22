@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.ActionFunctions.SpecimenSide;
+package org.firstinspires.ftc.teamcode.reference.behaviorControl.BehaviorTrees.BehaviorTreeComponents.ActionFunctions.SpecimenSide;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -9,18 +9,17 @@ import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTree
 import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.general.Status;
 import org.firstinspires.ftc.teamcode.hardwareControl.actuators.shooter.ShooterController;
 
-/// TODO: implement functionality
-public class MoveShoulderToScoreSpecimen implements ActionFunction
+public class MoveShoulderToDefaultPosition implements ActionFunction
 {
     private final LinearOpMode opMode;
     Telemetry telemetry;
     ShooterController shooterController;
     protected Status lastStatus = Status.FAILURE;
 
-   double targetAngle = 150.00;
+    double targetAngle = -55;
     boolean started = false;
 
-    public MoveShoulderToScoreSpecimen(Telemetry telemetry, ShooterController shooterController, LinearOpMode opMode) {
+    public MoveShoulderToDefaultPosition(Telemetry telemetry, ShooterController shooterController, LinearOpMode opMode) {
         this.telemetry = telemetry;
         this.shooterController = shooterController;
         this.opMode = opMode;

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.ActionFunctions.SpecimenSide;
+package org.firstinspires.ftc.teamcode.reference.behaviorControl.BehaviorTrees.BehaviorTreeComponents.ActionFunctions.SpecimenSide;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -9,18 +9,19 @@ import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTree
 import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.general.Status;
 import org.firstinspires.ftc.teamcode.hardwareControl.actuators.shooter.ShooterController;
 
-/// TODO: implement functionality
-public class MoveShoulderToScoreSpecimen implements ActionFunction
+public class MoveShoulderToScoringPosition implements ActionFunction
 {
     private final LinearOpMode opMode;
     Telemetry telemetry;
     ShooterController shooterController;
     protected Status lastStatus = Status.FAILURE;
 
-   double targetAngle = 150.00;
+
+
+   double targetAngle = 90.00;
     boolean started = false;
 
-    public MoveShoulderToScoreSpecimen(Telemetry telemetry, ShooterController shooterController, LinearOpMode opMode) {
+    public MoveShoulderToScoringPosition (Telemetry telemetry, ShooterController shooterController, LinearOpMode opMode) {
         this.telemetry = telemetry;
         this.shooterController = shooterController;
         this.opMode = opMode;
@@ -43,13 +44,13 @@ public class MoveShoulderToScoreSpecimen implements ActionFunction
             status =Status.RUNNING;
         } else {
             if (!shooterController.isOnTarget()) {
-                //   double currentPosition =shoulderController.getCurrentAngle();
+             //   double currentPosition =shoulderController.getCurrentAngle();
                 shooterController.moveToTargetPosition(this.targetAngle);
 
                 // Telemetry for debugging
-                //     telemetry.addData("Target Angle", targetAngle);
-                //     telemetry.addData("Current Angle", currentPosition);
-                //    telemetry.update();
+           //     telemetry.addData("Target Angle", targetAngle);
+           //     telemetry.addData("Current Angle", currentPosition);
+            //    telemetry.update();
 
 
                 status = Status.RUNNING;

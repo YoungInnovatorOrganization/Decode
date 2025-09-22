@@ -7,14 +7,14 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.general.ActionFunction;
 import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.general.BlackBoard;
 import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.general.Status;
-import org.firstinspires.ftc.teamcode.hardwareControl.actuators.arm.ArmController;
+import org.firstinspires.ftc.teamcode.hardwareControl.actuators.intake.IntakeController;
 
 
 public class MoveArmToScoringSpecimenPosition implements ActionFunction
 {
     private final LinearOpMode opMode;
     Telemetry telemetry;
-    ArmController armController;
+    IntakeController intakeController;
     protected Status lastStatus = Status.FAILURE;
 
 
@@ -22,9 +22,9 @@ public class MoveArmToScoringSpecimenPosition implements ActionFunction
     double targetPosition = 10.00;
     boolean started = false;
 
-    public MoveArmToScoringSpecimenPosition (Telemetry telemetry, ArmController armderController, LinearOpMode opMode) {
+    public MoveArmToScoringSpecimenPosition (Telemetry telemetry, IntakeController armderController, LinearOpMode opMode) {
         this.telemetry = telemetry;
-        this.armController = armderController;
+        this.intakeController = armderController;
         this.opMode = opMode;
         this.init();
     }
@@ -40,13 +40,13 @@ public class MoveArmToScoringSpecimenPosition implements ActionFunction
             return lastStatus;
         }
         if(!started){
-            armController.moveToTargetPosition(this.targetPosition);
+            intakeController.moveToTargetPosition(this.targetPosition);
             started = true;
             status =Status.RUNNING;
         } else {
-            if (!armController.isOnTarget()) {
+            if (!intakeController.isOnTarget()) {
                 //   double currentPosition =shoulderController.getCurrentAngle();
-                armController.moveToTargetPosition(this.targetPosition);
+                intakeController.moveToTargetPosition(this.targetPosition);
 
                 // Telemetry for debugging
                 //     telemetry.addData("Target Angle", targetAngle);
@@ -56,7 +56,7 @@ public class MoveArmToScoringSpecimenPosition implements ActionFunction
 
                 status = Status.RUNNING;
             } else {
-                if (armController.isArmStuck()) {
+                if (intakeController.isArmStuck()) {
                     status = Status.FAILURE;
                 } else {
                     status = Status.SUCCESS;

@@ -7,13 +7,13 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.general.ActionFunction;
 import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.general.BlackBoard;
 import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.general.Status;
-import org.firstinspires.ftc.teamcode.hardwareControl.actuators.shoulder.ShoulderController;
+import org.firstinspires.ftc.teamcode.hardwareControl.actuators.shooter.ShooterController;
 
 public class MoveShoulderToScoringPosition implements ActionFunction
 {
     private final LinearOpMode opMode;
     Telemetry telemetry;
-    ShoulderController shoulderController;
+    ShooterController shooterController;
     protected Status lastStatus = Status.FAILURE;
 
 
@@ -21,9 +21,9 @@ public class MoveShoulderToScoringPosition implements ActionFunction
    double targetAngle = 90.00;
     boolean started = false;
 
-    public MoveShoulderToScoringPosition (Telemetry telemetry, ShoulderController shoulderController, LinearOpMode opMode) {
+    public MoveShoulderToScoringPosition (Telemetry telemetry, ShooterController shooterController, LinearOpMode opMode) {
         this.telemetry = telemetry;
-        this.shoulderController = shoulderController;
+        this.shooterController = shooterController;
         this.opMode = opMode;
         this.init();
     }
@@ -39,13 +39,13 @@ public class MoveShoulderToScoringPosition implements ActionFunction
             return lastStatus;
         }
         if(!started){
-            shoulderController.moveToTargetPosition(this.targetAngle);
+            shooterController.moveToTargetPosition(this.targetAngle);
             started = true;
             status =Status.RUNNING;
         } else {
-            if (!shoulderController.isOnTarget()) {
+            if (!shooterController.isOnTarget()) {
              //   double currentPosition =shoulderController.getCurrentAngle();
-                shoulderController.moveToTargetPosition(this.targetAngle);
+                shooterController.moveToTargetPosition(this.targetAngle);
 
                 // Telemetry for debugging
            //     telemetry.addData("Target Angle", targetAngle);
@@ -55,7 +55,7 @@ public class MoveShoulderToScoringPosition implements ActionFunction
 
                 status = Status.RUNNING;
             } else {
-                if (shoulderController.isShoulderStuck()) {
+                if (shooterController.isShoulderStuck()) {
                     status = Status.FAILURE;
                 } else {
                     status = Status.SUCCESS;
