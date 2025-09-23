@@ -6,6 +6,7 @@ import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.paths.PathBuilder;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
@@ -13,7 +14,7 @@ import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
+
 import org.firstinspires.ftc.teamcode.pedroPathing.Tuning;
 
 @Autonomous(name = "Pedro: Drive 3ft", group = "Robot")
@@ -21,7 +22,7 @@ public class PedroDrive3ft extends LinearOpMode {
     
     public DcMotor fr, fl, br, bl;
     @Override
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException{
         // Build follower from your Constants (now wired with motors + IMU)
         DcMotor fl = hardwareMap.dcMotor.get("fl");
         DcMotor fr = hardwareMap.dcMotor.get("fr");
@@ -50,7 +51,7 @@ public class PedroDrive3ft extends LinearOpMode {
                 .build();
 
 
-
+        follower.setStartingPose(new Pose(0,0));
         telemetry.addLine("Ready to run line1 -> line2");
         telemetry.update();
 
