@@ -7,13 +7,13 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.general.Status;
 
-import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTree.ScoreSpecimensBehaviorTree;
+import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTree.FrontZoneScoringBehaviorTree;
 
 
 @Autonomous(name="BT Specimen Scoring", group="specimens")
 public class SpecimenScoringOpMode extends LinearOpMode
 {
-    ScoreSpecimensBehaviorTree behaviorTree = null;
+    FrontZoneScoringBehaviorTree behaviorTree = null;
     private long count =0;
 
 
@@ -50,7 +50,7 @@ public class SpecimenScoringOpMode extends LinearOpMode
 
 
     private void initialize(LinearOpMode opMode){
-        this.behaviorTree = new ScoreSpecimensBehaviorTree(this);
+        this.behaviorTree = new FrontZoneScoringBehaviorTree(this);
     }
 
 

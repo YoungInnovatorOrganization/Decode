@@ -1,17 +1,17 @@
 package org.firstinspires.ftc.teamcode.hardwareControl.actuators.driveTrain;
 
-import com.pedropathing.localization.Pose;
-import com.pedropathing.pathgen.Path;
-import com.pedropathing.pathgen.PathBuilder;
-import com.pedropathing.pathgen.PathChain;
+import com.pedropathing.geometry.Pose;
+import com.pedropathing.paths.Path;
+import com.pedropathing.paths.PathBuilder;
+import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 
 import com.pedropathing.follower.Follower;
 
 
-import org.firstinspires.ftc.teamcode.hardwareConfig.actuators.driveTrain.FConstants;
-import org.firstinspires.ftc.teamcode.hardwareConfig.actuators.driveTrain.LConstants;
+import org.firstinspires.ftc.teamcode.hardwareConfig.actuators.driveTrain.Constants;
+
 
 public class DriveTrainController {
     private Follower follower;
@@ -32,7 +32,7 @@ public class DriveTrainController {
             //throw new IllegalStateException("DriveTrainController has already been initialized.");
         }
 
-        follower = new Follower(hardwareMap, FConstants.class, LConstants.class);
+        follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(startPose);
 
         initialized = true;

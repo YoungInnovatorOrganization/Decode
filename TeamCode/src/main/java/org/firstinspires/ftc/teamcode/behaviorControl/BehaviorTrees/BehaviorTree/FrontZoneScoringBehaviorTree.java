@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTree;
 
-import com.pedropathing.localization.Pose;
+import com.pedropathing.geometry.Pose;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -10,7 +10,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import java.util.Arrays;
 import java.util.List;
 
-import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.ActionFunctions.SpecimenSide.MoveArmToScoringSpecimenPosition;
+import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.ActionFunctions.FrontZone.MoveToShootingPosition;
 import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.general.Action;
 import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.general.BehaviorTree;
 import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.general.BlackBoard;
@@ -18,12 +18,11 @@ import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTree
 import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.general.Sequence;
 import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.general.Status;
 import org.firstinspires.ftc.teamcode.hardwareControl.actuators.intake.IntakeController;
-import org.firstinspires.ftc.teamcode.hardwareControl.actuators.claw.ClawController;
 import org.firstinspires.ftc.teamcode.hardwareControl.actuators.driveTrain.DriveTrainController;
 import org.firstinspires.ftc.teamcode.hardwareControl.actuators.shooter.ShooterController;
 
 
-public class ScoreSpecimensBehaviorTree {
+public class FrontZoneScoringBehaviorTree {
     private BehaviorTree tree;
     private Node root;
     private BlackBoard blackBoard;
@@ -47,11 +46,7 @@ public class ScoreSpecimensBehaviorTree {
 
     /// End Arm
 
-    /// Claw
-    protected ClawController clawController;
-
-    /// End Claw
-    public ScoreSpecimensBehaviorTree( LinearOpMode opMode) {
+    public FrontZoneScoringBehaviorTree(LinearOpMode opMode) {
         this.hardwareMap = opMode.hardwareMap;
         this.telemetry = opMode.telemetry;
         this.opMode = opMode;
@@ -68,50 +63,29 @@ public class ScoreSpecimensBehaviorTree {
         this.driveTrainController.initialize(hardwareMap, startingPose);
         /// End Drivetrain
 */
-        /// Shoulder
+        /// Shooter
         this.shooterController = ShooterController.getInstance();
 
         this.shooterController.reset();
         this.shooterController.initialize(hardwareMap, telemetry, this.opMode);
 
-        /// End Shoulder
+        /// End Shooter
 
-        /// Arm
+        /// Intake
         this.intakeController = IntakeController.getInstance();
 
         this.intakeController.reset();
         this.intakeController.initialize(hardwareMap, telemetry, this.opMode);
 
-        /// End Arm
+        /// End Intake
 
-        /// Claw
-        this.clawController = ClawController.getInstance();
-        this.clawController.reset();
-        this.clawController.initialize(0,this.opMode);
-        /// End Claw
+
 
         telemetry.clearAll();
 
         this.root = new Sequence(
                 Arrays.asList(
-                        //new Action(new DriveTrainControllerUpdate(telemetry, this.driveTrainController),telemetry),
-                        //new Action(new ScoreSpecimen1(telemetry, this.driveTrainController),telemetry),
-                        //new Action(new MoveSample2(telemetry, this.driveTrainController),telemetry),
-                        //new Action(new MoveSample3(telemetry, this.driveTrainController), telemetry),
-                        //new Action(new ScoreSpecimen2(telemetry, driveTrainController), telemetry),
-                       // new Action(new MoveShoulderToScoringPosition(telemetry, shoulderController, this.opMode), telemetry),
-                        //new Action(new MoveShoulderToScoreSpecimen(telemetry, shoulderController, this.opMode), telemetry),
-                       // new Action(new MoveShoulderToDefaultPosition(telemetry, shoulderController, this.opMode), telemetry)
-                        new Action(new MoveArmToScoringSpecimenPosition(telemetry, intakeController, this.opMode), telemetry)
-                        //new Action(new OpenClaw(telemetry, clawController, this.opMode), telemetry),
-                        //new Action(new PauseAction(2000,telemetry, this.opMode), telemetry),
-                        //new Action(new CloseClaw(telemetry, clawController, this.opMode), telemetry),
-                        //new Action(new PauseAction(2000,telemetry, this.opMode), telemetry),
-                        //new Action(new OpenClaw(telemetry, clawController, this.opMode), telemetry),
-                        //new Action(new PauseAction(2000,telemetry, this.opMode), telemetry),
-                        //new Action(new CloseClaw(telemetry, clawController, this.opMode), telemetry)
-
-
+                        new Action(new MoveToShootingPosition(telemetry, driveTrainController), telemetry)
                 ),telemetry);
 
         this.tree = new BehaviorTree(root, blackBoard);

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.ActionFunctions.SpecimenSide;
+package org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.ActionFunctions.Shooter;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -9,27 +9,23 @@ import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTree
 import org.firstinspires.ftc.teamcode.behaviorControl.BehaviorTrees.BehaviorTreeComponents.general.Status;
 import org.firstinspires.ftc.teamcode.hardwareControl.actuators.shooter.ShooterController;
 
-/// TODO: implement functionality
-public class MoveShoulderToScoreSpecimen implements ActionFunction
+public class ResetShooter implements ActionFunction
 {
     private final LinearOpMode opMode;
     Telemetry telemetry;
     ShooterController shooterController;
     protected Status lastStatus = Status.FAILURE;
 
-   double targetAngle = 150.00;
     boolean started = false;
 
-    public MoveShoulderToScoreSpecimen(Telemetry telemetry, ShooterController shooterController, LinearOpMode opMode) {
+    public ResetShooter(Telemetry telemetry, ShooterController shooterController, LinearOpMode opMode) {
         this.telemetry = telemetry;
         this.shooterController = shooterController;
         this.opMode = opMode;
         this.init();
     }
 
-    private void init(){
-        telemetry.clearAll();
-    }
+    private void init(){    }
 
     public Status perform(BlackBoard blackBoard) {
         Status status;
@@ -37,21 +33,12 @@ public class MoveShoulderToScoreSpecimen implements ActionFunction
         if (lastStatus == Status.SUCCESS) {
             return lastStatus;
         }
-        if(!started){
-            shooterController.moveToTargetPosition(this.targetAngle);
+        if (!started) {
+            shooterController.reset();
             started = true;
-            status =Status.RUNNING;
+            status = Status.RUNNING;
         } else {
-            if (!shooterController.isOnTarget()) {
-                //   double currentPosition =shoulderController.getCurrentAngle();
-                shooterController.moveToTargetPosition(this.targetAngle);
-
-                // Telemetry for debugging
-                //     telemetry.addData("Target Angle", targetAngle);
-                //     telemetry.addData("Current Angle", currentPosition);
-                //    telemetry.update();
-
-
+            if (shooterController.isBusy()) {
                 status = Status.RUNNING;
             } else {
                 if (shooterController.isShoulderStuck()) {
@@ -61,8 +48,7 @@ public class MoveShoulderToScoreSpecimen implements ActionFunction
                 }
             }
         }
-        this.telemetry.update();
-        lastStatus = status;
+
         return status;
     }
 
