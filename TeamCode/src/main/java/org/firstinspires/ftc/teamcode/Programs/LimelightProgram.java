@@ -4,9 +4,9 @@ import com.qualcomm.hardware.limelightvision.LLResultTypes;
 import com.qualcomm.hardware.limelightvision.LLStatus;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.acmerobotics.dashboard.FtcDashboard;
+/*import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;*/
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -20,7 +20,7 @@ import dev.nextftc.ftc.NextFTCOpMode;
 public class LimelightProgram extends NextFTCOpMode {
     Limelight3A limelight;
     LLResult result = limelight.getLatestResult();
-    FtcDashboard dashboard = FtcDashboard.getInstance();
+    //FtcDashboard dashboard = FtcDashboard.getInstance();
 
 
     public LimelightProgram() {
@@ -29,7 +29,7 @@ public class LimelightProgram extends NextFTCOpMode {
         limelight.start(); // This tells Limelight to start looking!
         limelight.pipelineSwitch(1); // Switch to pipeline number 0
         limelight.start();
-        FtcDashboard.getInstance().startCameraStream(limelight, 0);
+        //FtcDashboard.getInstance().startCameraStream(limelight, 0);
     }
     @Override
     public void onStartButtonPressed() {

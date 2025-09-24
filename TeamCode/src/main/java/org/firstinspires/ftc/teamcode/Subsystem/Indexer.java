@@ -1,4 +1,4 @@
 package org.firstinspires.ftc.teamcode.Subsystem;
 
-public class indexer {
+public class Indexer {
 }
