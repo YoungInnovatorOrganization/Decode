@@ -1,4 +1,5 @@
 package org.firstinspires.ftc.teamcode.Programs;
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.LLResultTypes;
 import com.qualcomm.hardware.limelightvision.LLStatus;
@@ -16,14 +17,14 @@ import java.util.List;
 
 import dev.nextftc.ftc.NextFTCOpMode;
 
-@TeleOp(name = "NextFTC TeleOp Program Java")
+@TeleOp(name = "LimelightProgram")
 public class LimelightProgram extends NextFTCOpMode {
     Limelight3A limelight;
-    LLResult result = limelight.getLatestResult();
     //FtcDashboard dashboard = FtcDashboard.getInstance();
 
 
     public LimelightProgram() {
+        FtcDashboard.getInstance().startCameraStream(limelight, 60);
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
         limelight.setPollRateHz(100); // This sets how often we ask Limelight for data (100 times per second)
         limelight.start(); // This tells Limelight to start looking!
@@ -33,8 +34,8 @@ public class LimelightProgram extends NextFTCOpMode {
     }
     @Override
     public void onStartButtonPressed() {
-        result.getPipelineIndex();
         LLResult result = limelight.getLatestResult();
+        result.getPipelineIndex();
         List<LLResultTypes.FiducialResult> fiducials = result.getFiducialResults();
         List<LLResultTypes.FiducialResult> fiducialResults = result.getFiducialResults();
         for (LLResultTypes.FiducialResult fr : fiducialResults) {
