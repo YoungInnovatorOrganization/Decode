@@ -28,6 +28,7 @@ import dev.nextftc.hardware.impl.MotorEx;
 @TeleOp(name = "LimelightProgram")
 public class LimelightProgram extends NextFTCOpMode {
     MotorEx Direita = new MotorEx("motor_shooter");
+    
     MotorEx DireitaTras = new MotorEx("motor_shooter2");
 
     MotorEx Esquerda = new MotorEx("motor_esquerda");
