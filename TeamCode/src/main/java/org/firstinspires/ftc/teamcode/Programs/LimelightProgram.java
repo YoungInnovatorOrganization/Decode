@@ -79,7 +79,7 @@ public class LimelightProgram extends NextFTCOpMode {
             for (LLResultTypes.FiducialResult fr : fiducialResults) {
                 telemetry.addData("Fiducial", "ID: %d, Family: %s, X: %.2f, Y: %.2f", fr.getFiducialId(), fr.getFamily(), fr.getTargetXDegrees(), fr.getTargetYDegrees());
                 Heading = (-fr.getTargetXDegrees()/22);
-                
+
             }
         }else{
             telemetry.addData("Limelight", "No data available");
