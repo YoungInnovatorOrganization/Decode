@@ -57,9 +57,9 @@ public class TestBenchSubsystem {
 
     public StatedMotor getMotorFromName(String name) {
         switch(name) {
-            case "pidMotor": return pidMotor;
-            case "launcherL": return launcherLeftMotor;
-            case "launcherR": return launcherRightMotor;
+            case robotConstants.PID_MOTOR_NAME: return pidMotor;
+            case robotConstants.LAUNCH_MOTOR_L: return launcherLeftMotor;
+            case robotConstants.LAUNCH_MOTOR_R: return launcherRightMotor;
         };
         return null;
     }
@@ -206,13 +206,14 @@ public class TestBenchSubsystem {
      * @return Formatted telemetry string
      */
     public String getTelemetryData() {
-        return String.format(
-                "PID Motor: %s | Vel: %.1f/%.1f | Pos: %d | Servo: %.2f",
-                pidMotor.enabled ? "ON" : "OFF",
-                getMotorVelocity(robotConstants.PID_MOTOR_NAME),
-                getTargetVelocity(robotConstants.PID_MOTOR_NAME),
-                getMotorPosition(robotConstants.PID_MOTOR_NAME),
-                currentServoPosition
-        );
+        return "PID Motor: Not Implemented";
+//        return String.format(
+//                "PID Motor: %s | Vel: %.1f/%.1f | Pos: %d | Servo: %.2f",
+//                pidMotor.enabled ? "ON" : "OFF",
+//                getMotorVelocity(robotConstants.PID_MOTOR_NAME),
+//                getTargetVelocity(robotConstants.PID_MOTOR_NAME),
+//                getMotorPosition(robotConstants.PID_MOTOR_NAME),
+//                currentServoPosition
+//        );
     }
 }

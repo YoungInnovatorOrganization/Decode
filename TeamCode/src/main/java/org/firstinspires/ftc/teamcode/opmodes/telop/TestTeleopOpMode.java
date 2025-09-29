@@ -77,13 +77,13 @@ public class TestTeleopOpMode extends OpMode {
         boolean cooldownExpired = buttonCooldown.milliseconds() > BUTTON_COOLDOWN_MS;
 
         // Enable motor with A button
-        if (gamepad1.x) {
+        if (gamepad1.x && !testBench.isMotorEnabled(robotConstants.LAUNCH_MOTOR_L)) {
             testBench.enableMotor(robotConstants.LAUNCH_MOTOR_L);
         } else {
             testBench.disableMotor(robotConstants.LAUNCH_MOTOR_L);
         }
 
-        if (gamepad1.b) {
+        if (gamepad1.b && !testBench.isMotorEnabled(robotConstants.LAUNCH_MOTOR_R)) {
             testBench.enableMotor(robotConstants.LAUNCH_MOTOR_R);
         } else {
             testBench.disableMotor(robotConstants.LAUNCH_MOTOR_R);
@@ -130,13 +130,13 @@ public class TestTeleopOpMode extends OpMode {
         telemetry.addData("Loop Time", "%.1f ms", runtime.milliseconds() % 20);
 
         // Control status
-        telemetry.addData("Motor Status", testBench.isMotorEnabled(robotConstants.PID_MOTOR_NAME) ? "ENABLED" : "DISABLED");
-        telemetry.addData("Motor Velocity", "%.1f / %.1f tps",
-                testBench.getMotorVelocity(robotConstants.PID_MOTOR_NAME),
-                testBench.getTargetVelocity(robotConstants.PID_MOTOR_NAME));
-        telemetry.addData("Custom Velocity", "%.1f tps", customVelocity);
-        telemetry.addData("Motor Position", "%d ticks", testBench.getMotorPosition(robotConstants.PID_MOTOR_NAME));
-        telemetry.addData("At Target Vel", testBench.isMotorAtTargetVelocity(robotConstants.PID_MOTOR_NAME) ? "YES" : "NO");
+//        telemetry.addData("Motor Status", testBench.isMotorEnabled(robotConstants.PID_MOTOR_NAME) ? "ENABLED" : "DISABLED");
+//        telemetry.addData("Motor Velocity", "%.1f / %.1f tps",
+//                testBench.getMotorVelocity(robotConstants.PID_MOTOR_NAME),
+//                testBench.getTargetVelocity(robotConstants.PID_MOTOR_NAME));
+//        telemetry.addData("Custom Velocity", "%.1f tps", customVelocity);
+//        telemetry.addData("Motor Position", "%d ticks", testBench.getMotorPosition(robotConstants.PID_MOTOR_NAME));
+//        telemetry.addData("At Target Vel", testBench.isMotorAtTargetVelocity(robotConstants.PID_MOTOR_NAME) ? "YES" : "NO");
 
         // Servo status
         telemetry.addData("Servo Position", "%.2f", testBench.getServoPosition());
