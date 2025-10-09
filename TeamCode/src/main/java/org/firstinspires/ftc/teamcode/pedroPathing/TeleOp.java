@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;   // <-- required
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
+// Jayden sucks get a life
 
 @TeleOp(name = "TeleOp", group = "A1")
 public class TeleOP extends LinearOpMode {
