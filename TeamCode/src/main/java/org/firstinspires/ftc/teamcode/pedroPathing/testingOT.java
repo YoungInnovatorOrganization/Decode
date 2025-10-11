@@ -5,13 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-//<<<<<<< Updated upstream
-import com.qualcomm.robotcore.hardware.Servo;
-// Jayden sucks get a life
-//=======
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.CRServo;
-//>>>>>>> Stashed changes
 
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
@@ -20,7 +15,7 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 @TeleOp(name = "TeleOp (Field-Centric, Dual Outtake 315RPM, CR Sorter)", group = "A1")
-public class TeleOP extends LinearOpMode {
+public class testingOT extends LinearOpMode {
 
     // === Driver feel / controls ===
     public static double DRIVE_POWER_SCALE = 1.0;
@@ -30,12 +25,6 @@ public class TeleOP extends LinearOpMode {
     public static boolean HEADING_HOLD_ENABLED = true;
     public static double HEADING_HOLD_KP   = 1.0;
 
-//<<<<<<< Updated upstream
-    // Sorting mechanism positions (adjust for your linkage/servo)
-    private static final double SORT_LEFT   = 0.15;
-    private static final double SORT_CENTER = 0.50;
-    private static final double SORT_RIGHT  = 0.85;
-//=======
     // === Mechanisms ===
     public static double INTAKE_POWER      = 1.0;   // A toggles intake motor power on/off
     public static double OUTTAKE_RPM       = 315.0; // B toggles both outtake motors at this RPM
@@ -47,7 +36,6 @@ public class TeleOP extends LinearOpMode {
 
     // Internal
     private double holdHeadingRad = 0.0;
-//>>>>>>> Stashed changes
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -57,6 +45,17 @@ public class TeleOP extends LinearOpMode {
         DcMotor bL = hardwareMap.dcMotor.get("bL");
         DcMotor fR = hardwareMap.dcMotor.get("fR");
         DcMotor bR = hardwareMap.dcMotor.get("bR");
+        /// //
+        DcMotor outtakeL = hardwareMap.dcMotor.get("outakeL");
+        DcMotor outtakeR = hardwareMap.dcMotor.get("outakeR");
+
+        outtakeL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        outtakeR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        outtakeL.setDirection(DcMotorSimple.Direction.REVERSE);
+        outtakeR.setDirection(DcMotorSimple.Direction.REVERSE);
+/// //////////
+
 
         fL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         bL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -78,8 +77,8 @@ public class TeleOP extends LinearOpMode {
         intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Dual outtake (DcMotorEx for velocity control). Rename to match your config.
-        DcMotorEx outtakeL = hardwareMap.get(DcMotorEx.class, "outtakeL");
-        DcMotorEx outtakeR = hardwareMap.get(DcMotorEx.class, "outtakeR");
+        DcMotorEx outakeL = hardwareMap.get(DcMotorEx.class, "outtakeL");
+        DcMotorEx outakeR = hardwareMap.get(DcMotorEx.class, "outtakeR");
         outtakeL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         outtakeR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         outtakeL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -181,7 +180,7 @@ public class TeleOP extends LinearOpMode {
             boolean curA = gamepad1.a;
             if (curA && !prevA) {
                 intakeOn = !intakeOn;
-                intake.setPower(intakeOn ? INTAKE_POWER : 1);
+                intake.setPower(intakeOn ? INTAKE_POWER : 0.0);
             }
             prevA = curA;
 
@@ -191,8 +190,8 @@ public class TeleOP extends LinearOpMode {
                 outtakeOn = !outtakeOn;
                 if (outtakeOn) {
                     double ticksPerSec = (OUTTAKE_RPM * OUTTAKE_TICKS_PER_REV) / 60.0;
-                    outtakeL.setVelocity(ticksPerSec);
-                    outtakeR.setVelocity(ticksPerSec);
+//                    outtakeL.setVelocity(ticksPerSec);
+//                    outtakeR.setVelocity(ticksPerSec);
                 } else {
                     outtakeL.setPower(0.0);
                     outtakeR.setPower(0.0);
@@ -204,7 +203,7 @@ public class TeleOP extends LinearOpMode {
             boolean curX = gamepad1.x;
             if (curX && !prevX) {
                 sorterOn = !sorterOn;
-                sorter.setPower(sorterOn ? SORTER_SPEED : 1.0);
+                sorter.setPower(sorterOn ? SORTER_SPEED : 0.0);
             }
             prevX = curX;
 
@@ -213,11 +212,15 @@ public class TeleOP extends LinearOpMode {
             telemetry.addData("Drive scale", "%.2f", scale);
             telemetry.addData("Intake", intakeOn ? "ON" : "OFF");
             telemetry.addData("Outtake", outtakeOn ? "ON" : "OFF");
-            if (outtakeOn) {
-                telemetry.addData("OutL vel (tps)", "%.0f", outtakeL.getVelocity());
-                telemetry.addData("OutR vel (tps)", "%.0f", outtakeR.getVelocity());
+//            if (outtakeOn) {
+//                telemetry.addData("OutL vel (tps)", "%.0f", outtakeL.getVelocity());
+//                telemetry.addData("OutR vel (tps)", "%.0f", outtakeR.getVelocity());
+//            }
+            if (sorterOn) {
+                telemetry.addData("Sorter", "ON @ %.2f", SORTER_SPEED);
+            } else {
+                telemetry.addData("Sorter", "OFF");
             }
-            telemetry.addData("Sorter", sorterOn ? "ON @ %.2f" : "OFF", SORTER_SPEED);
             telemetry.update();
         }
     }
@@ -236,3 +239,4 @@ public class TeleOP extends LinearOpMode {
         return a;
     }
 }
+
