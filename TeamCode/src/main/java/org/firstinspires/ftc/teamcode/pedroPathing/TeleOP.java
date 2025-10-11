@@ -5,13 +5,13 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-<<<<<<< Updated upstream
+//<<<<<<< Updated upstream
 import com.qualcomm.robotcore.hardware.Servo;
 // Jayden sucks get a life
-=======
+//=======
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.CRServo;
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
 
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
@@ -30,12 +30,12 @@ public class TeleOP extends LinearOpMode {
     public static boolean HEADING_HOLD_ENABLED = true;
     public static double HEADING_HOLD_KP   = 1.0;
 
-<<<<<<< Updated upstream
+//<<<<<<< Updated upstream
     // Sorting mechanism positions (adjust for your linkage/servo)
     private static final double SORT_LEFT   = 0.15;
     private static final double SORT_CENTER = 0.50;
     private static final double SORT_RIGHT  = 0.85;
-=======
+//=======
     // === Mechanisms ===
     public static double INTAKE_POWER      = 1.0;   // A toggles intake motor power on/off
     public static double OUTTAKE_RPM       = 315.0; // B toggles both outtake motors at this RPM
@@ -47,7 +47,7 @@ public class TeleOP extends LinearOpMode {
 
     // Internal
     private double holdHeadingRad = 0.0;
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
 
     @Override
     public void runOpMode() throws InterruptedException {
