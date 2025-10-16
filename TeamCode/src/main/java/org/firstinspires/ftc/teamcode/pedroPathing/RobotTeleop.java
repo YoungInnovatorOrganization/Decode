@@ -84,11 +84,11 @@ public class RobotTeleop extends OpMode {
 
 
         if (gamepad1.a) {
-            shooterMotor.setVelocity(1460);
+            shooterMotor.setVelocity(1420);
         } else if (gamepad1.b) {
             shooterMotor.setVelocity(0);
         } else if (gamepad1.x) {
-            shooterMotor.setVelocity(1000);
+            shooterMotor.setVelocity(1035);
         } else if (gamepad1.y) {
             shooterMotor.setVelocity(1200);
         }
