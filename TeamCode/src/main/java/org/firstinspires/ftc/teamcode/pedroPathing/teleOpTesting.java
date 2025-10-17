@@ -12,130 +12,115 @@ import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
-
 @TeleOp
 public class teleOpTesting extends LinearOpMode {
 
+    // Motors
     public DcMotor LF = null;
     public DcMotor RF = null;
     public DcMotor LB = null;
     public DcMotor RB = null;
+
+    public DcMotor intake = null;
+    public DcMotor outtakeL = null;
+    public DcMotor outtakeR = null;
+    public DcMotor spinner = null;
 
     IMU imu;
 
     int counter = 1;
     int counter_b = 1;
 
+    // Track previous button state for toggles
+    boolean lastB = false;
+    boolean lastA = false;
+
     @Override
     public void runOpMode() throws InterruptedException {
-        // Declare our motors
-        // Make sure your ID's match your configuration
-        DcMotor FL = hardwareMap.dcMotor.get("FL");
-        DcMotor BL = hardwareMap.dcMotor.get("BL");
-        DcMotor FR = hardwareMap.dcMotor.get("FR");
-        DcMotor BR = hardwareMap.dcMotor.get("BR");
+        // Initialize motors
+        LF = hardwareMap.dcMotor.get("FL");
+        LB = hardwareMap.dcMotor.get("BL");
+        RF = hardwareMap.dcMotor.get("FR");
+        RB = hardwareMap.dcMotor.get("BR");
 
+        intake = hardwareMap.dcMotor.get("intake");
+        outtakeL = hardwareMap.dcMotor.get("outtakeL");
+        outtakeR = hardwareMap.dcMotor.get("outtakeR");
+        spinner = hardwareMap.dcMotor.get("spinner");
 
-        //DcMotor sorter = hardwareMap.dcMotor.get("sorter");
-        DcMotor intake = hardwareMap.dcMotor.get("intake");
-        DcMotor outtakeL = hardwareMap.dcMotor.get("outtakeL");
-        DcMotor outtakeR = hardwareMap.dcMotor.get("outtakeR");
-
-
-
-
-
-        // Reverse the right side motors. This may be wrong for your setup.
-        // If your robot moves backwards when commanded to go forwards,
-        // reverse the left side instead.
-        // See the note about this earlier on this page.
+        // Set directions
         LF.setDirection(DcMotor.Direction.REVERSE);
         RF.setDirection(DcMotor.Direction.FORWARD);
         LB.setDirection(DcMotor.Direction.REVERSE);
         RB.setDirection(DcMotor.Direction.FORWARD);
+        spinner.setDirection(DcMotor.Direction.FORWARD);
 
+        outtakeR.setDirection(DcMotor.Direction.FORWARD);
+        outtakeL.setDirection(DcMotor.Direction.FORWARD);
+        intake.setDirection(DcMotor.Direction.FORWARD);
 
-        // Initialize IMU with correct orientation
+        // Initialize IMU
         imu = hardwareMap.get(IMU.class, "imu");
-        RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.UP;
-        RevHubOrientationOnRobot.UsbFacingDirection usbDirection = RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
-        RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoDirection, usbDirection);
+        RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(
+                RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD
+        );
         imu.initialize(new IMU.Parameters(orientationOnRobot));
 
         telemetry.addLine("Ready. Press Play to start");
         telemetry.update();
 
-
         waitForStart();
-
-
         if (isStopRequested()) return;
 
-
         while (opModeIsActive()) {
-            telemetry.addLine("Press A to reset Yaw");
-            telemetry.addLine("Hold left bumper to drive in robot relative");
-            telemetry.addLine("The left joystick sets the robot direction");
-            telemetry.addLine("Moving the right joystick left and right turns the robot");
+            telemetry.addLine("Press Y to reset Yaw");
+            telemetry.addLine("Hold X to drive in robot-relative mode");
+            telemetry.addLine("Left joystick = movement, Right joystick = turning");
 
-            if (gamepad1.a) {
+            // Reset yaw
+            if (gamepad1.y) {
                 imu.resetYaw();
             }
 
-            if (gamepad1.left_bumper) {
+            // Driving logic
+            if (gamepad1.x) {
                 drive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
             } else {
                 driveFieldRelative(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
             }
 
-
-
-
-
-           /*if (gamepad2.b){
-               outtakeR.setPower(1);
-               outtakeL.setPower(1);
-           } else {
-               outtakeR.setPower(0);
-               outtakeL.setPower(0);
-           }
-*/
-
-
-            if (gamepad2.b) {
-                counter = counter + 1;
+            // Toggle outtake
+            boolean currentB = gamepad2.b;
+            if (currentB && !lastB) {
+                counter++;
             }
-            if (gamepad2.a) {
-                counter_b = counter_b + 1;
-            }
+            lastB = currentB;
 
             if (counter % 2 == 0) {
                 outtakeR.setPower(1);
                 outtakeL.setPower(1);
-
-
-            } else if (counter % 2 == 1) {
-
-
+            } else {
                 outtakeR.setPower(0);
                 outtakeL.setPower(0);
             }
 
+            // Toggle intake
+            boolean currentA = gamepad2.a;
+            if (currentA && !lastA) {
+                counter_b++;
+            }
+            lastA = currentA;
 
             if (counter_b % 2 == 0) {
                 intake.setPower(1);
-            } else if (counter % 2 == 1) {
+            } else {
                 intake.setPower(0);
             }
 
-
             telemetry.update();
-            idle(); // Let the system handle other tasks
+            idle(); // Let the system handle background tasks
         }
-
-
-
-
     }
 
     private void driveFieldRelative(double forward, double right, double rotate) {
@@ -150,7 +135,6 @@ public class teleOpTesting extends LinearOpMode {
         drive(newForward, newRight, rotate);
     }
 
-
     public void drive(double forward, double right, double rotate) {
         double frontLeftPower = forward + right + rotate;
         double frontRightPower = forward - right - rotate;
@@ -162,15 +146,11 @@ public class teleOpTesting extends LinearOpMode {
                         Math.max(Math.abs(frontRightPower),
                                 Math.max(Math.abs(backRightPower), Math.abs(backLeftPower)))));
 
-        double maxSpeed = 1.0; // Adjust for speed limit
+        double maxSpeed = 1.0;
 
         LF.setPower(maxSpeed * frontLeftPower / maxPower);
         RF.setPower(maxSpeed * frontRightPower / maxPower);
         LB.setPower(maxSpeed * backLeftPower / maxPower);
         RB.setPower(maxSpeed * backRightPower / maxPower);
     }
-
-
 }
-
-
