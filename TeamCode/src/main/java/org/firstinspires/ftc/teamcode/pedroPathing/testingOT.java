@@ -189,7 +189,9 @@ public class testingOT extends LinearOpMode {
             if (curB && !prevB) {
                 outtakeOn = !outtakeOn;
                 if (outtakeOn) {
-                    double ticksPerSec = (OUTTAKE_RPM * OUTTAKE_TICKS_PER_REV) / 60.0;
+                    outtakeL.setPower(0.5);
+                    outtakeR.setPower(0.5);
+//                    double ticksPerSec = (OUTTAKE_RPM * OUTTAKE_TICKS_PER_REV) / 60.0;
 //                    outtakeL.setVelocity(ticksPerSec);
 //                    outtakeR.setVelocity(ticksPerSec);
                 } else {
