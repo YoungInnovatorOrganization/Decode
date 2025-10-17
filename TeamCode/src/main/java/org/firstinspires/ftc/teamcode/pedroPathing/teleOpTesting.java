@@ -8,6 +8,7 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -57,7 +58,7 @@ public class teleOpTesting extends LinearOpMode {
 
         outtakeR.setDirection(DcMotor.Direction.FORWARD);
         outtakeL.setDirection(DcMotor.Direction.FORWARD);
-        intake.setDirection(DcMotor.Direction.FORWARD);
+        intake.setDirection(DcMotor.Direction.REVERSE);
 
         // Initialize IMU
         imu = hardwareMap.get(IMU.class, "imu");
@@ -113,7 +114,7 @@ public class teleOpTesting extends LinearOpMode {
             lastA = currentA;
 
             if (counter_b % 2 == 0) {
-                intake.setPower(1);
+                intake.setPower(.7);
             } else {
                 intake.setPower(0);
             }
