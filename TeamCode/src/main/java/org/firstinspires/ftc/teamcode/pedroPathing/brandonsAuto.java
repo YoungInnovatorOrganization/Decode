@@ -109,6 +109,7 @@ public class brandonsAuto extends LinearOpMode {
         //BEGIN 30 SECOND AUTO
         Drive(1, 100);
         RotateRight(1,50);
+        Spinner(1,100);
         //END AUTO
 
         telemetry.addData("Path", "Complete");
@@ -168,6 +169,11 @@ public class brandonsAuto extends LinearOpMode {
         outtakeL.setPower(speed);
         this.sleep(time);
     }
+    public void Spinner(double speed, long time) {
+        spinner.setPower(speed);
+        this.sleep(time);
+    }
+
 
     public void encoderLift(double speed, double leftSide, double rightSide, double timeoutS) {
         /*int newLift1Target;
