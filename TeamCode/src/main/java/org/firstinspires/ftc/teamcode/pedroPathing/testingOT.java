@@ -41,48 +41,41 @@ public class testingOT extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         // ======== Drivetrain (4 DC motors) ========
-        DcMotor fL = hardwareMap.dcMotor.get("fL");
-        DcMotor bL = hardwareMap.dcMotor.get("bL");
-        DcMotor fR = hardwareMap.dcMotor.get("fR");
-        DcMotor bR = hardwareMap.dcMotor.get("bR");
+        DcMotor FL = hardwareMap.dcMotor.get("FL");
+        DcMotor BL = hardwareMap.dcMotor.get("BL");
+        DcMotor FR = hardwareMap.dcMotor.get("FR");
+        DcMotor BR = hardwareMap.dcMotor.get("BR");
         /// //
-        DcMotor outtakeL = hardwareMap.dcMotor.get("outakeL");
-        DcMotor outtakeR = hardwareMap.dcMotor.get("outakeR");
-
-        outtakeL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        outtakeR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        outtakeL.setDirection(DcMotorSimple.Direction.REVERSE);
-        outtakeR.setDirection(DcMotorSimple.Direction.REVERSE);
+        // Dual outtake (DcMotorEx for velocity control). Rename to match your config.
+        DcMotorEx outtakeL = hardwareMap.get(DcMotorEx.class, "outtakeL");
+        DcMotorEx outtakeR = hardwareMap.get(DcMotorEx.class, "outtakeR");
+        outtakeL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        outtakeR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        outtakeL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        outtakeR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 /// //////////
 
 
-        fL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        bL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        fR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        bR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        FL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        BL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        FR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        BR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Reverse right side so +power drives forward on all wheels
-        fR.setDirection(DcMotorSimple.Direction.REVERSE);
-        bR.setDirection(DcMotorSimple.Direction.REVERSE);
+        FR.setDirection(DcMotorSimple.Direction.REVERSE);
+        BR.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        fL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        bL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        fR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        bR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        FR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // ======== Mechanisms ========
         DcMotor intake = hardwareMap.dcMotor.get("intake"); // rename to match your config
         intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        // Dual outtake (DcMotorEx for velocity control). Rename to match your config.
-        DcMotorEx outakeL = hardwareMap.get(DcMotorEx.class, "outtakeL");
-        DcMotorEx outakeR = hardwareMap.get(DcMotorEx.class, "outtakeR");
-        outtakeL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        outtakeR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        outtakeL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        outtakeR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         // If your mechanism requires opposite spin directions, reverse one side here:
         // outtakeR.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -163,10 +156,10 @@ public class testingOT extends LinearOpMode {
                     Math.max(Math.abs(fl),
                             Math.max(Math.abs(bl),
                                     Math.max(Math.abs(fr), Math.abs(br)))));
-            fL.setPower(fl / max);
-            bL.setPower(bl / max);
-            fR.setPower(fr / max);
-            bR.setPower(br / max);
+            FL.setPower(fl / max);
+            BL.setPower(bl / max);
+            FR.setPower(fr / max);
+            BR.setPower(br / max);
 
             // ======== HEADING RESET (Y) ========
             boolean curY = gamepad1.y;
@@ -185,6 +178,7 @@ public class testingOT extends LinearOpMode {
             prevA = curA;
 
             // ======== OUTTAKE TOGGLE (B) → both motors @ 315 RPM ========
+<<<<<<< Updated upstream
             boolean curB = gamepad1.b;
             if (curB && !prevB) {
                 outtakeOn = !outtakeOn;
@@ -198,8 +192,31 @@ public class testingOT extends LinearOpMode {
                     outtakeL.setPower(0.0);
                     outtakeR.setPower(0.0);
                 }
+=======
+//            boolean curB = gamepad1.b;
+//            if (curB && !prevB) {
+//                outtakeOn = !outtakeOn;
+//                if (outtakeOn) {
+//                    outtakeL.setVelocity();
+////                    double ticksPerSec = (OUTTAKE_RPM * OUTTAKE_TICKS_PER_REV) / 60.0;
+////                    outtakeL.setVelocity(ticksPerSec);
+////                    outtakeR.setVelocity(ticksPerSec);
+//                } else {
+//                    outtakeL.setPower(0.0);
+//                    outtakeR.setPower(0.0);
+//                }
+//            }
+//            prevB = curB;
+
+            // Inside your loop() or update method:
+            if (gamepad1.b) {
+                outtakeL.setPower(1);
+                outtakeR.setPower(1);
+            } else {
+                outtakeL.setPower(0);
+                outtakeR.setPower(0);
+>>>>>>> Stashed changes
             }
-            prevB = curB;
 
             // ======== SORTER TOGGLE (X) → CR servo @ fixed speed ========
             boolean curX = gamepad1.x;
