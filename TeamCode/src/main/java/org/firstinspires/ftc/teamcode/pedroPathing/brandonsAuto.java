@@ -222,8 +222,8 @@ public class brandonsAuto extends LinearOpMode {
             lift1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             lift2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            sleep(250);   // optional pause after each move.*/
-        }
+            sleep(250);   // optional pause after each move.
+        }*/
     }
 }
 //Arm encoders
