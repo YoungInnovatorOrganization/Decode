@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.util.Range;
+
 @Disabled
 @TeleOp(name="Simplified Testing")
 public class simplifiedTesting extends OpMode {
@@ -16,13 +17,11 @@ public class simplifiedTesting extends OpMode {
     private CRServo leftServo;
     private CRServo rightServo;
 
-    // Adjustable speed
-    private double flywheelSpeed = 0.3;  // Start at 30%
+    private double flywheelSpeed = 0.3;
     private static final double SPEED_INCREMENT = 0.05;
 
     private boolean flywheelRunning = false;
 
-    // Button debouncing
     private boolean lastA = false;
     private boolean lastB = false;
     private boolean lastRB = false;
@@ -33,21 +32,17 @@ public class simplifiedTesting extends OpMode {
 
     @Override
     public void init() {
-        // Initialize flywheel
         flywheelMotor = hardwareMap.get(DcMotor.class, "flywheel");
         flywheelMotor.setDirection(DcMotor.Direction.REVERSE);
 
-        // Initialize drive motors
         rf = hardwareMap.get(DcMotor.class, "rf");
         rr = hardwareMap.get(DcMotor.class, "rr");
         lf = hardwareMap.get(DcMotor.class, "lf");
         lr = hardwareMap.get(DcMotor.class, "lr");
         rf.setDirection(DcMotor.Direction.REVERSE);
 
-        // Initialize intake
         intake = hardwareMap.get(DcMotor.class, "intake");
 
-        // Initialize servos
         leftServo = hardwareMap.get(CRServo.class, "leftServo");
         rightServo = hardwareMap.get(CRServo.class, "rightServo");
         rightServo.setDirection(CRServo.Direction.REVERSE);
@@ -63,7 +58,6 @@ public class simplifiedTesting extends OpMode {
 
     @Override
     public void loop() {
-        // === DRIVE ===
         double drive = -gamepad1.left_stick_y * 1.0;
         double strafe = -gamepad1.left_stick_x * 1.0;
         double turn = -gamepad1.right_stick_x * 1.0;
@@ -78,7 +72,6 @@ public class simplifiedTesting extends OpMode {
         lr.setPower(backLeftPower);
         rr.setPower(backRightPower);
 
-        // === INTAKE ===
         if (gamepad1.right_bumper) {
             intake.setPower(1.0);
         }
@@ -89,7 +82,6 @@ public class simplifiedTesting extends OpMode {
             intake.setPower(-1.0);
         }
 
-        // === FLYWHEEL CONTROL ===
         if (gamepad1.a && !lastA) {
             flywheelRunning = true;
         }
@@ -99,7 +91,6 @@ public class simplifiedTesting extends OpMode {
         lastA = gamepad1.a;
         lastB = gamepad1.b;
 
-        // === FLYWHEEL SPEED ADJUSTMENT ===
         if (gamepad1.dpad_up && !lastDpadUp) {
             flywheelSpeed = Math.min(1.0, flywheelSpeed + SPEED_INCREMENT);
         }
@@ -109,18 +100,15 @@ public class simplifiedTesting extends OpMode {
         lastDpadUp = gamepad1.dpad_up;
         lastDpadDown = gamepad1.dpad_down;
 
-        // === SET FLYWHEEL ===
         if (flywheelRunning) {
             flywheelMotor.setPower(flywheelSpeed);
         } else {
             flywheelMotor.setPower(0);
         }
 
-        // === SERVOS ALWAYS RUNNING ===
         leftServo.setPower(1.0);
         rightServo.setPower(1.0);
 
-        // === TELEMETRY ===
         telemetry.addData("Status", "Running");
         telemetry.addLine();
 
